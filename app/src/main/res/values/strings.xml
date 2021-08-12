@@ -1,8 +1,11 @@
 <resources>
-    <string name="app_name">PCSClassRoom</string>
-    <string name="user_name_label">Name</string>
+    <string name="app_name">E-GROWEED</string>
+    <string name="app_login_welcome">WELCOME TO</string>
+    <string name="user_name_label">Please enter your name</string>
+    <string name="user_name_input">Name</string>
     <string name="user_name_label_mandatory">Name *</string>
     <string name="avatar_accessibility_description">An avatar image</string>
+    <string name="app_login_welcome_logo_description">e-groweed logo</string>
     <string name="button_register_user">Register</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_user_menu_fragment">Hello!</string>

@@ -9,19 +9,27 @@ public class MainActivityController {
     //DAO  -> Data Access Object
     private UserRoomDao userRoomDao;
 
-    public void checkUser(MainActivity mainActivity){
+
+
+    public User checkActualUser(MainActivity mainActivity){
         this.userRoomDao = LocalStorage.getLocalStorage(mainActivity.getApplicationContext()).userRoomDao();
-        String name;
-        Integer avatar;
         User user;
         user = this.userRoomDao.getUser();
         if (user != null){
-            name = user.getName();
-            avatar = user.getAvatar();
-            mainActivity.registerSucceed(name,avatar);
+            return user;
         }
+        return null;
     }
 
+    public String checkUserName(MainActivity mainActivity, String name){
+        this.userRoomDao = LocalStorage.getLocalStorage(mainActivity.getApplicationContext()).userRoomDao();
+        User user;
+        user = this.userRoomDao.getUserByName(name);
+        if (user != null){
+            return user.getName();
+        }
+        return null;
+    }
 
     public void register(MainActivity mainActivity, String name, Integer avatar){
         this.userRoomDao = LocalStorage.getLocalStorage(mainActivity.getApplicationContext()).userRoomDao();
@@ -29,12 +37,23 @@ public class MainActivityController {
             mainActivity.nameIsMandatory();
             return;
         }
-
         User user = new User();
         user.setName(name);
         user.setAvatar(avatar);
         this.userRoomDao.insertOne(user);
+        mainActivity.registerSucceed(user);
+    }
 
-        mainActivity.registerSucceed(name,avatar);
+    public void updateRegisteredUser(MainActivity mainActivity, String name, Integer avatar){
+        this.userRoomDao = LocalStorage.getLocalStorage(mainActivity.getApplicationContext()).userRoomDao();
+        if(name == null || name.compareTo("")==0){
+            mainActivity.nameIsMandatory();
+            return;
+        }
+        User user = new User();
+        user.setName(name);
+        user.setAvatar(avatar);
+        this.userRoomDao.updateOne(user);
+        mainActivity.registerSucceed(user);
     }
 }

@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 import com.example.pcsclassroom.R;
 import com.example.pcsclassroom.controller.MainActivityController;
+import com.example.pcsclassroom.model.pojo.User;
 
 public class MainActivity extends AppCompatActivity {
     private EditText nameEditText;
@@ -51,7 +52,10 @@ public class MainActivity extends AppCompatActivity {
         avatarIndex = 0;
         getSupportActionBar().hide();
         mainActivityController = new MainActivityController();
-        mainActivityController.checkUser(this);
+        User actualUser = mainActivityController.checkActualUser(this);
+        if(actualUser != null){
+            registerSucceed(actualUser);
+        }
     }
     public void nameIsMandatory(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -66,20 +70,90 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-    public void registerSucceed(String name, Integer avatar){
+    public void updateAlreadyRegisteredUser(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("You can only update your avatar.")
+                .setTitle("That is your actual name")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        updateRegisteredUser();
+                    }
+                })
+                .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+    public void userAlreadyTaken(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("try again.")
+                .setTitle("That user has already been taken.")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+    public void alertNewUserToRegister(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure to register with this new user?")
+                .setTitle("Warning!")
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mainActivityController.register(MainActivity.this,
+                                nameEditText.getText().toString(),
+                                avatarIndex);
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+    public void registerSucceed(User user){
         Intent newActivity = new Intent(this, StudentMenu.class);
-        String userName = nameEditText.getText().toString();
-        newActivity.putExtra("userName", userName);
-        newActivity.putExtra("userAvatar", avatar);
+        newActivity.putExtra("userName", user.getName());
+        newActivity.putExtra("userAvatar", user.getAvatar());
         startActivity(newActivity);
     }
 
     public void registerUser(){
-        mainActivityController.register(this,
+        User checkActualUser = mainActivityController.checkActualUser(this);
+        String checkUserName = mainActivityController.checkUserName(this, nameEditText.getText().toString());
+        if(checkActualUser == null && checkUserName == null){
+            mainActivityController.register(this,
+                    nameEditText.getText().toString(),
+                    avatarIndex);
+        }
+        if(checkActualUser.getName().compareTo(nameEditText.getText().toString())==0){
+            updateAlreadyRegisteredUser();
+        }
+        if(checkUserName != null){
+            userAlreadyTaken();
+        }
+        if(checkActualUser != null && checkUserName == null){
+            alertNewUserToRegister();
+        }
+    }
+    public void updateRegisteredUser(){
+        mainActivityController.updateRegisteredUser(this,
                 nameEditText.getText().toString(),
                 avatarIndex);
-
     }
+
     public void avatarToLeft(){
         setAvatarIndex(avatarIndex - 1);
     }
