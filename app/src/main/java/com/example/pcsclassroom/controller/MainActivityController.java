@@ -31,7 +31,7 @@ public class MainActivityController {
         return null;
     }
 
-    public void register(MainActivity mainActivity, String name, Integer avatar){
+    public void register(MainActivity mainActivity, String name, Integer avatar, String roll){
         this.userRoomDao = LocalStorage.getLocalStorage(mainActivity.getApplicationContext()).userRoomDao();
         if(name == null || name.compareTo("")==0){
             mainActivity.nameIsMandatory();
@@ -40,11 +40,12 @@ public class MainActivityController {
         User user = new User();
         user.setName(name);
         user.setAvatar(avatar);
+        user.setRoll(roll);
         this.userRoomDao.insertOne(user);
         mainActivity.registerSucceed(user);
     }
 
-    public void updateRegisteredUser(MainActivity mainActivity, String name, Integer avatar){
+    public void updateRegisteredUser(MainActivity mainActivity, String name, Integer avatar, String roll){
         this.userRoomDao = LocalStorage.getLocalStorage(mainActivity.getApplicationContext()).userRoomDao();
         if(name == null || name.compareTo("")==0){
             mainActivity.nameIsMandatory();
@@ -53,6 +54,7 @@ public class MainActivityController {
         User user = new User();
         user.setName(name);
         user.setAvatar(avatar);
+        user.setRoll(roll);
         this.userRoomDao.updateOne(user);
         mainActivity.registerSucceed(user);
     }

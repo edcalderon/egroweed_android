@@ -21,7 +21,8 @@ public class StudentMenu extends AppCompatActivity {
         setContentView(R.layout.activity_student_menu);
         String userName = getIntent().getExtras().getString("userName") != null ? getIntent().getExtras().getString("userName") : "not provided";
         Integer userAvatar = getIntent().getExtras().getInt("userAvatar") != -1 ? getIntent().getExtras().getInt("userAvatar") : 0;
-        getSupportFragmentManager().beginTransaction().replace(R.id.user_menu_user_information_fragment, UserInformationFragment.newInstance(userName, userAvatar)).commit();
+        String roll = getIntent().getExtras().getString("userRoll") != null ? getIntent().getExtras().getString("userRoll") : "not provided";
+        getSupportFragmentManager().beginTransaction().replace(R.id.user_menu_user_information_fragment, UserInformationFragment.newInstance(userName, userAvatar, roll)).commit();
         setTitle(R.string.register_title);
     }
 

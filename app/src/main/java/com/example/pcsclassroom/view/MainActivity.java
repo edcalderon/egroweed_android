@@ -7,9 +7,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import com.example.pcsclassroom.R;
 import com.example.pcsclassroom.controller.MainActivityController;
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText nameEditText;
     private Button leftAvatarButton, rightAvatarButton, registerButton;
     private ImageView avatarImageView;
+    private Spinner spinnerRoles;
     private int avatarIndex;
     private MainActivityController mainActivityController;
 
@@ -31,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
         rightAvatarButton = findViewById(R.id.right_button_register_user);
         avatarImageView = findViewById(R.id.avatar_image_view_register_user);
         registerButton = findViewById(R.id.button_register_user);
+        spinnerRoles = findViewById(R.id.spinner_app_login_roles);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.roles, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerRoles.setAdapter(adapter);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,7 +118,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         mainActivityController.register(MainActivity.this,
                                 nameEditText.getText().toString(),
-                                avatarIndex);
+                                avatarIndex,
+                                spinnerRoles.getSelectedItem().toString());
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -127,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
         Intent newActivity = new Intent(this, StudentMenu.class);
         newActivity.putExtra("userName", user.getName());
         newActivity.putExtra("userAvatar", user.getAvatar());
+        newActivity.putExtra("userRoll", user.getRoll());
         startActivity(newActivity);
     }
 
@@ -136,7 +145,8 @@ public class MainActivity extends AppCompatActivity {
         if(checkActualUser == null && checkUserName == null){
             mainActivityController.register(this,
                     nameEditText.getText().toString(),
-                    avatarIndex);
+                    avatarIndex,
+                    spinnerRoles.getSelectedItem().toString());
         }
         if(checkActualUser.getName().compareTo(nameEditText.getText().toString())==0){
             updateAlreadyRegisteredUser();
@@ -151,7 +161,8 @@ public class MainActivity extends AppCompatActivity {
     public void updateRegisteredUser(){
         mainActivityController.updateRegisteredUser(this,
                 nameEditText.getText().toString(),
-                avatarIndex);
+                avatarIndex,
+                spinnerRoles.getSelectedItem().toString());
     }
 
     public void avatarToLeft(){

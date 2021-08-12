@@ -2,6 +2,11 @@
     <string name="app_name">E-GROWEED</string>
     <string name="app_login_welcome">WELCOME TO</string>
     <string name="user_name_label">Please enter your name</string>
+    <string name="app_login_roll_label">Roll</string>
+    <string-array name="roles">
+        <item>E-grower</item>
+        <item>E-grower Master</item>
+    </string-array>
     <string name="user_name_input">Name</string>
     <string name="user_name_label_mandatory">Name *</string>
     <string name="avatar_accessibility_description">An avatar image</string>

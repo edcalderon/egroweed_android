@@ -15,20 +15,24 @@ import com.example.pcsclassroom.R;
 public class UserInformationFragment extends Fragment {
     private String name;
     private Integer avatar;
+    private String roll;
     private View rootView;
     private TextView nameTextView;
     private ImageView avatarImageView;
+    private TextView rollTextView;
 
     public UserInformationFragment() {
         // Required empty public constructor
     }
 
-    public static UserInformationFragment newInstance(String name, Integer avatar) {
+    public static UserInformationFragment newInstance(String name, Integer avatar, String roll) {
         UserInformationFragment fragment = new UserInformationFragment();
         fragment.setName(name);
         fragment.setAvatar(avatar);
+        fragment.setRoll(roll);
         return fragment;
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,7 +45,9 @@ public class UserInformationFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_user_information, container, false);
         nameTextView = rootView.findViewById(R.id.user_name_user_information_fragment);
         avatarImageView = rootView.findViewById(R.id.avatar_information_fragment);
+        rollTextView = rootView.findViewById(R.id.menu_roll_textView);
         nameTextView.setText(name);
+        rollTextView.setText(roll);
         switch (avatar){
             case 0:
                 avatarImageView.setImageResource(R.drawable.ic_avatar_1);
@@ -77,5 +83,7 @@ public class UserInformationFragment extends Fragment {
     public void setAvatar(Integer avatar) {
         this.avatar = avatar;
     }
+
+    private void setRoll(String roll) { this.roll = roll; }
 
 }
