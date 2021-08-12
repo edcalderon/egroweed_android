@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">PCSClassRoom</string>
+    <string name="user_name_label">Name</string>
+    <string name="user_name_label_mandatory">Name *</string>
+    <string name="avatar_accessibility_description">An avatar image</string>
+    <string name="button_register_user">Register</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_user_menu_fragment">Hello!</string>
+    <string name="configuration_button_label_student_menu">Hello!</string>
+    <string name="register_title">Hello world!</string>
+</resources>

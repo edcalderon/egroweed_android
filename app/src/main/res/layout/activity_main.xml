@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.MainActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="395dp"
+        android:layout_height="220dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499">
+
+        <ImageView
+            android:id="@+id/avatar_image_view_register_user"
+            android:layout_width="120dp"
+            android:layout_height="124dp"
+            android:contentDescription="@string/avatar_accessibility_description"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_avatar_1" />
+
+        <Button
+            android:id="@+id/left_button_avatar_register_user"
+            android:layout_width="74dp"
+            android:layout_height="106dp"
+            android:background="@android:color/transparent"
+            android:drawableBottom="@drawable/ic_left_arrow"
+            app:backgroundTint="#3C3F41"
+            app:layout_constraintBottom_toBottomOf="@+id/avatar_image_view_register_user"
+            app:layout_constraintEnd_toStartOf="@+id/avatar_image_view_register_user"
+            app:layout_constraintHorizontal_bias="0.562"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/avatar_image_view_register_user"
+            app:layout_constraintVertical_bias="0.412" />
+
+        <Button
+            android:id="@+id/right_button_register_user"
+            android:layout_width="76dp"
+            android:layout_height="112dp"
+            android:background="@android:color/transparent"
+            android:drawableBottom="@drawable/ic_right_arrow"
+            android:onClick="avatarToRight"
+            app:backgroundTint="#3C3F41"
+            app:layout_constraintBottom_toBottomOf="@+id/avatar_image_view_register_user"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.54"
+            app:layout_constraintStart_toEndOf="@+id/avatar_image_view_register_user"
+            app:layout_constraintTop_toTopOf="@+id/avatar_image_view_register_user"
+            app:layout_constraintVertical_bias="0.379" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/input_user_name_register_user"
+        android:layout_width="359dp"
+        android:layout_height="57dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/user_name_label_mandatory"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:importantForAutofill="no" />
+
+    <Button
+        android:id="@+id/button_register_user"
+        android:layout_width="346dp"
+        android:layout_height="56dp"
+        android:text="@string/button_register_user"
+        app:backgroundTint="#009688"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintVertical_bias="0.033" />
+</androidx.constraintlayout.widget.ConstraintLayout>
