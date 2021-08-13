@@ -1,30 +1,28 @@
 package com.example.pcsclassroom.view;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.pcsclassroom.R;
 import com.example.pcsclassroom.view.fragments.UserInformationFragment;
 
-public class StudentMenu extends AppCompatActivity {
+public class Egrower_master_dashboard extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_menu);
+        setContentView(R.layout.activity_egrower_master_dashboard);
         String userName = getIntent().getExtras().getString("userName") != null ? getIntent().getExtras().getString("userName") : "not provided";
         Integer userAvatar = getIntent().getExtras().getInt("userAvatar") != -1 ? getIntent().getExtras().getInt("userAvatar") : 0;
         String roll = getIntent().getExtras().getString("userRoll") != null ? getIntent().getExtras().getString("userRoll") : "not provided";
         getSupportFragmentManager().beginTransaction().replace(R.id.egrower_master_menu_user_information_fragment, UserInformationFragment.newInstance(userName, userAvatar, roll)).commit();
-        setTitle(R.string.dashboard_egrower);
+        setTitle(R.string.dashboard_egrower_master);
     }
 
     @Override
@@ -32,25 +30,14 @@ public class StudentMenu extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.student_menu, menu);
         return true;
     }
-    public void logout(){
-        SharedPreferences sharedpreferences = getSharedPreferences(MainActivity.SESSION, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.clear();
-        editor.commit();
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
             case R.id.configuration_button_student_menu_dashboard:
-                Intent newActivity = new Intent(this, Profile.class);
-                newActivity.putExtra("userName", getIntent().getExtras().getString("userName") != null ? getIntent().getExtras().getString("userName") : "not provided");
-                newActivity.putExtra("userAvatar", getIntent().getExtras().getInt("userAvatar") != -1 ? getIntent().getExtras().getInt("userAvatar") : 0);
-                newActivity.putExtra("userRoll", getIntent().getExtras().getString("userRoll") != null ? getIntent().getExtras().getString("userRoll") : "not provided");
-                startActivity(newActivity);;
+                AlertDialog.Builder builder_profile = new AlertDialog.Builder(this)
+                        .setTitle("Profile");
+                builder_profile.create().show();
                 return true;
             case R.id.configuration_button_student_menu_logout:
                 AlertDialog.Builder builder_logout = new AlertDialog.Builder(this)
@@ -59,7 +46,7 @@ public class StudentMenu extends AppCompatActivity {
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                                logout();
+                                finish();
                             }
                         })
                         .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {

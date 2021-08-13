@@ -37,4 +37,7 @@ public interface UserRoomDao {
     @Delete
     void deleteAll(User ... user);
 
+    @Delete
+    void deleteOne(User user);
+
 }

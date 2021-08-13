@@ -3,8 +3,10 @@ package com.example.pcsclassroom.view;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -24,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
     private Spinner spinnerRoles;
     private int avatarIndex;
     private MainActivityController mainActivityController;
+    public static final String SESSION = "MyPrefs" ;
+    public static final String Name = "nameKey";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +65,9 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         mainActivityController = new MainActivityController();
         User actualUser = mainActivityController.checkActualUser(this);
-        if(actualUser != null){
+        SharedPreferences sharedpreferences = getSharedPreferences(MainActivity.SESSION, Context.MODE_PRIVATE);
+        String sessionName = sharedpreferences.getString("nameKey", "name");
+        if(actualUser != null && actualUser.getName().compareTo(sessionName)==0){
             registerSucceed(actualUser);
         }
     }
@@ -132,11 +139,25 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
     public void registerSucceed(User user){
-        Intent newActivity = new Intent(this, StudentMenu.class);
-        newActivity.putExtra("userName", user.getName());
-        newActivity.putExtra("userAvatar", user.getAvatar());
-        newActivity.putExtra("userRoll", user.getRoll());
-        startActivity(newActivity);
+        SharedPreferences sharedpreferences = getSharedPreferences(SESSION, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString(Name, user.getName());
+        editor.commit();
+        if(user.getRoll().compareTo("E-grower")==0){
+            Intent newActivity = new Intent(this, StudentMenu.class);
+            newActivity.putExtra("userName", user.getName());
+            newActivity.putExtra("userAvatar", user.getAvatar());
+            newActivity.putExtra("userRoll", user.getRoll());
+            startActivity(newActivity);
+        }
+        if(user.getRoll().compareTo("E-grower Master")==0){
+            Intent newActivity = new Intent(this, Egrower_master_dashboard.class);
+            newActivity.putExtra("userName", user.getName());
+            newActivity.putExtra("userAvatar", user.getAvatar());
+            newActivity.putExtra("userRoll", user.getRoll());
+            startActivity(newActivity);
+        }
+
     }
 
     public void registerUser(){

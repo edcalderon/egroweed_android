@@ -10,28 +10,37 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
 
 import com.example.pcsclassroom.R;
-import com.example.pcsclassroom.view.fragments.UserInformationFragment;
+import com.example.pcsclassroom.model.LocalStorage;
+import com.example.pcsclassroom.model.dao.UserRoomDao;
+import com.example.pcsclassroom.model.pojo.User;
 
-public class StudentMenu extends AppCompatActivity {
+
+public class Profile extends AppCompatActivity {
+
+
+    private UserRoomDao userRoomDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_menu);
+        setContentView(R.layout.activity_profile);
         String userName = getIntent().getExtras().getString("userName") != null ? getIntent().getExtras().getString("userName") : "not provided";
         Integer userAvatar = getIntent().getExtras().getInt("userAvatar") != -1 ? getIntent().getExtras().getInt("userAvatar") : 0;
         String roll = getIntent().getExtras().getString("userRoll") != null ? getIntent().getExtras().getString("userRoll") : "not provided";
-        getSupportFragmentManager().beginTransaction().replace(R.id.egrower_master_menu_user_information_fragment, UserInformationFragment.newInstance(userName, userAvatar, roll)).commit();
+        // getSupportFragmentManager().beginTransaction().replace(R.id.egrower_master_menu_user_information_fragment, UserInformationFragment.newInstance(userName, userAvatar, roll)).commit();
         setTitle(R.string.dashboard_egrower);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.student_menu, menu);
+        getMenuInflater().inflate(R.menu.profile_menu, menu);
         return true;
     }
+
     public void logout(){
         SharedPreferences sharedpreferences = getSharedPreferences(MainActivity.SESSION, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -46,19 +55,15 @@ public class StudentMenu extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
             case R.id.configuration_button_student_menu_dashboard:
-                Intent newActivity = new Intent(this, Profile.class);
-                newActivity.putExtra("userName", getIntent().getExtras().getString("userName") != null ? getIntent().getExtras().getString("userName") : "not provided");
-                newActivity.putExtra("userAvatar", getIntent().getExtras().getInt("userAvatar") != -1 ? getIntent().getExtras().getInt("userAvatar") : 0);
-                newActivity.putExtra("userRoll", getIntent().getExtras().getString("userRoll") != null ? getIntent().getExtras().getString("userRoll") : "not provided");
-                startActivity(newActivity);;
+                finish();
                 return true;
             case R.id.configuration_button_student_menu_logout:
                 AlertDialog.Builder builder_logout = new AlertDialog.Builder(this)
                         .setTitle("Exit")
                         .setMessage("Do you want to exit?")
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
                                 logout();
                             }
                         })

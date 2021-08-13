@@ -1,15 +1,17 @@
 package com.example.pcsclassroom.controller;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.example.pcsclassroom.model.LocalStorage;
 import com.example.pcsclassroom.model.dao.UserRoomDao;
 import com.example.pcsclassroom.model.pojo.User;
 import com.example.pcsclassroom.view.MainActivity;
 
+
 public class MainActivityController {
     //DAO  -> Data Access Object
     private UserRoomDao userRoomDao;
-
-
 
     public User checkActualUser(MainActivity mainActivity){
         this.userRoomDao = LocalStorage.getLocalStorage(mainActivity.getApplicationContext()).userRoomDao();

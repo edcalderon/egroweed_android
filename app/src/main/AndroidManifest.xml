@@ -10,6 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PCSClassRoom">
         <activity android:name=".view.StudentMenu"></activity>
+        <activity android:name=".view.Profile"></activity>
+        <activity android:name=".view.Egrower_master_dashboard"></activity>
         <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

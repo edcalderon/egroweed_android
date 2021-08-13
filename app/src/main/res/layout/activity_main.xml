@@ -51,9 +51,9 @@
             android:background="@android:color/transparent"
             android:drawableBottom="@drawable/ic_right_arrow"
             android:onClick="avatarToRight"
-            android:textColorHighlight="#233672"
+            android:textColorHighlight="#3D6332"
             android:textColorLink="#243773"
-            app:backgroundTint="#3C3F41"
+            app:backgroundTint="#3D6332"
             app:layout_constraintBottom_toBottomOf="@+id/avatar_image_view_register_user"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.54"
@@ -65,8 +65,8 @@
 
     <EditText
         android:id="@+id/input_user_name_register_user"
-        android:layout_width="355dp"
-        android:layout_height="0dp"
+        android:layout_width="343dp"
+        android:layout_height="38dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="258dp"
@@ -83,15 +83,15 @@
 
     <TextView
         android:id="@+id/app_login_label_input"
-        android:layout_width="wrap_content"
-        android:layout_height="19dp"
+        android:layout_width="157dp"
+        android:layout_height="18dp"
         android:text="@string/user_name_label"
         app:layout_constraintBottom_toTopOf="@+id/input_user_name_register_user"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.012"
+        app:layout_constraintHorizontal_bias="0.01"
         app:layout_constraintStart_toStartOf="@+id/input_user_name_register_user"
         app:layout_constraintTop_toBottomOf="@+id/app_login_logo"
-        app:layout_constraintVertical_bias="0.947" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/button_register_user"
@@ -126,13 +126,13 @@
         android:id="@+id/app_login_welcome_text"
         android:layout_width="wrap_content"
         android:layout_height="32dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="68dp"
         android:text="@string/app_login_welcome"
         android:textColor="#D06581"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.684"
+        app:layout_constraintHorizontal_bias="0.703"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -148,8 +148,8 @@
 
     <Spinner
         android:id="@+id/spinner_app_login_roles"
-        android:layout_width="334dp"
-        android:layout_height="32dp"
+        android:layout_width="343dp"
+        android:layout_height="34dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginBottom="369dp"

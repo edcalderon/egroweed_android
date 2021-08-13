@@ -6,7 +6,7 @@
     <group>
         <item
             android:id="@+id/configuration_button_student_menu_dashboard"
-            android:title="@string/configuration_button_label_student_menu_profile"
+            android:title="@string/configuration_button_label_student_menu_dashboard"
 
             />
         <item

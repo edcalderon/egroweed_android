@@ -45,9 +45,9 @@ public class UserInformationFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_user_information, container, false);
         nameTextView = rootView.findViewById(R.id.user_name_user_information_fragment);
         avatarImageView = rootView.findViewById(R.id.avatar_information_fragment);
-        rollTextView = rootView.findViewById(R.id.menu_roll_textView);
+        // rollTextView = rootView.findViewById(R.id.menu_roll_textView);
         nameTextView.setText(name);
-        rollTextView.setText(roll);
+        // rollTextView.setText(roll);
         switch (avatar){
             case 0:
                 avatarImageView.setImageResource(R.drawable.ic_avatar_1);
