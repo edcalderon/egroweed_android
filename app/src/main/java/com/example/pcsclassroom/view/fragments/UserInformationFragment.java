@@ -14,6 +14,7 @@ import com.example.pcsclassroom.R;
 
 public class UserInformationFragment extends Fragment {
     private String name;
+    private String email;
     private Integer avatar;
     private String roll;
     private View rootView;
@@ -25,9 +26,10 @@ public class UserInformationFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static UserInformationFragment newInstance(String name, Integer avatar, String roll) {
+    public static UserInformationFragment newInstance(String email, String name, Integer avatar, String roll) {
         UserInformationFragment fragment = new UserInformationFragment();
         fragment.setName(name);
+        fragment.setEmail(email);
         fragment.setAvatar(avatar);
         fragment.setRoll(roll);
         return fragment;
@@ -85,5 +87,13 @@ public class UserInformationFragment extends Fragment {
     }
 
     private void setRoll(String roll) { this.roll = roll; }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
 }

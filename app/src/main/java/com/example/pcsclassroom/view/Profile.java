@@ -11,28 +11,59 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.pcsclassroom.R;
-import com.example.pcsclassroom.model.LocalStorage;
-import com.example.pcsclassroom.model.dao.UserRoomDao;
-import com.example.pcsclassroom.model.pojo.User;
+import com.example.pcsclassroom.controller.ProfileActivityController;
+
+
+import es.dmoral.toasty.Toasty;
 
 
 public class Profile extends AppCompatActivity {
 
+    private EditText emailEditText;
+    private EditText rollEditText;
+    private EditText nameEditText;
+    private ImageView avatarImageView;
+    private Button updateButton;
+    private ProfileActivityController profileActivityController;
 
-    private UserRoomDao userRoomDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        String userName = getIntent().getExtras().getString("userName") != null ? getIntent().getExtras().getString("userName") : "not provided";
+        String userName = getIntent().getExtras().getString("userName") != null ? getIntent().getExtras().getString("userName") : "";
+        String userEmail = getIntent().getExtras().getString("userEmail") != null ? getIntent().getExtras().getString("userEmail") : "";
+        String userRoll = getIntent().getExtras().getString("userRoll") != null ? getIntent().getExtras().getString("userRoll") : "";
         Integer userAvatar = getIntent().getExtras().getInt("userAvatar") != -1 ? getIntent().getExtras().getInt("userAvatar") : 0;
-        String roll = getIntent().getExtras().getString("userRoll") != null ? getIntent().getExtras().getString("userRoll") : "not provided";
-        // getSupportFragmentManager().beginTransaction().replace(R.id.egrower_master_menu_user_information_fragment, UserInformationFragment.newInstance(userName, userAvatar, roll)).commit();
-        setTitle(R.string.dashboard_egrower);
+        emailEditText = findViewById(R.id.editText_profile_email);
+        emailEditText.setText(userEmail);
+        emailEditText.setFocusable(false);
+        nameEditText = findViewById(R.id.editText_profile_name);
+        nameEditText.setText(userName);
+        rollEditText = findViewById(R.id.editText_profile_roll);
+        rollEditText.setText(userRoll);
+        rollEditText.setFocusable(false);
+        avatarImageView = findViewById(R.id.imageView_profile_imagen_profile);
+        setAvatarImageView(userAvatar);
+        updateButton = findViewById(R.id.button_profile_update);
+        updateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateUser();
+            }
+        });
+
+        if(userRoll.compareTo("E-grower")==0){
+            setTitle(R.string.profile_egrower);
+        } else {
+            setTitle(R.string.profile_egrower_master);
+        }
     }
 
     @Override
@@ -41,6 +72,16 @@ public class Profile extends AppCompatActivity {
         return true;
     }
 
+    public void updateUser(){
+        if(nameEditText.getText().toString().isEmpty()) {
+            Toasty.warning(getApplicationContext(), "Change something", Toast.LENGTH_SHORT, true).show();
+        } else{
+            profileActivityController.updateUser(this, emailEditText.getText().toString(), nameEditText.getText().toString());
+        }
+    }
+    public void updateUserSucceed(){
+        Toasty.success(getApplicationContext(), "User updated", Toast.LENGTH_SHORT, true).show();
+    }
     public void logout(){
         SharedPreferences sharedpreferences = getSharedPreferences(MainActivity.SESSION, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -77,5 +118,24 @@ public class Profile extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    public void setAvatarImageView(Integer avatarIndex){
+        switch (avatarIndex){
+            case 0:
+                avatarImageView.setImageResource(R.drawable.ic_avatar_1);
+                break;
+            case 1:
+                avatarImageView.setImageResource(R.drawable.ic_avatar_2);
+                break;
+            case 2:
+                avatarImageView.setImageResource(R.drawable.ic_avatar_3);
+                break;
+            case 3:
+                avatarImageView.setImageResource(R.drawable.ic_avatar_4);
+                break;
+            case 4:
+                avatarImageView.setImageResource(R.drawable.ic_avatar_5);
+                break;
+        }
     }
 }

@@ -7,70 +7,114 @@
 
     <ImageView
         android:id="@+id/imageView_profile_imagen_profile"
-        android:layout_width="153dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="31dp"
-        android:layout_marginLeft="31dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="50dp"
+        android:layout_width="212dp"
+        android:layout_height="145dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginBottom="64dp"
         app:layout_constraintBottom_toTopOf="@+id/editText_profile_name"
-        app:layout_constraintStart_toEndOf="@+id/textView_profile_name"
+        app:layout_constraintEnd_toEndOf="@+id/editText_profile_name"
+        app:layout_constraintHorizontal_bias="0.125"
+        app:layout_constraintStart_toStartOf="@+id/editText_profile_name"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_avatar_1" />
 
     <EditText
         android:id="@+id/editText_profile_name"
-        android:layout_width="285dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
         android:layout_marginBottom="28dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/editText_profile_email"
-        app:layout_constraintStart_toStartOf="@+id/textView_profile_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView_profile_imagen_profile" />
 
     <TextView
         android:id="@+id/textView_profile_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="51dp"
-        android:layout_marginLeft="51dp"
-        android:layout_marginBottom="3dp"
         android:text="@string/user_name_input"
         app:layout_constraintBottom_toTopOf="@+id/editText_profile_name"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/editText_profile_name" />
+
+    <EditText
+        android:id="@+id/editText_profile_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="209dp"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toTopOf="@+id/button_profile_update"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_profile_name" />
 
     <TextView
         android:id="@+id/textView_profile_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="@string/user_email_input"
-        app:layout_constraintBottom_toTopOf="@+id/editText_profile_email"
-        app:layout_constraintStart_toStartOf="@+id/editText_profile_name" />
-
-    <EditText
-        android:id="@+id/editText_profile_email"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginRight="1dp"
-        android:layout_marginBottom="209dp"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/button_profile_update"
-        app:layout_constraintEnd_toEndOf="@+id/editText_profile_name"
-        app:layout_constraintStart_toStartOf="@+id/textView_profile_email"
+        app:layout_constraintEnd_toEndOf="@+id/editText_profile_email"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editText_profile_email"
         app:layout_constraintTop_toBottomOf="@+id/editText_profile_name" />
 
     <Button
         android:id="@+id/button_profile_update"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="281dp"
+        android:layout_height="43dp"
         android:layout_marginBottom="89dp"
         android:text="@string/app_profile_update"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_profile_email" />
+
+    <TextView
+        android:id="@+id/textView_profile_roll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_profile_roll"
+        app:layout_constraintBottom_toTopOf="@+id/editText_profile_roll"
+        app:layout_constraintEnd_toEndOf="@+id/editText_profile_roll"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editText_profile_roll"
+        app:layout_constraintTop_toBottomOf="@+id/editText_profile_email"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/editText_profile_roll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="136dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/button_profile_update"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_profile_email"
+        app:layout_constraintVertical_bias="0.914" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

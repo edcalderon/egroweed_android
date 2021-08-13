@@ -7,6 +7,7 @@
     <string name="app_login_roll_label">Select your roll</string>
     <string name="app_login_avatar_label">Select your avatar</string>
     <string name="app_profile_update">Update</string>
+    <string name="app_profile_roll">Roll</string>
     <string-array name="roles">
         <item>E-grower</item>
         <item>E-grower Master</item>
@@ -28,4 +29,6 @@
     <string name="configuration_button_label_student_menu_logout">Logout</string>
     <string name="dashboard_egrower">Dashboard | E-GROWER</string>
     <string name="dashboard_egrower_master">Dashboard | E-GROWER MASTER</string>
+    <string name="profile_egrower_master">Profile | E-GROWER MASTER</string>
+    <string name="profile_egrower">Profile | E-GROWER </string>
 </resources>
