@@ -20,10 +20,11 @@ public class StudentMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_menu);
-        String userName = getIntent().getExtras().getString("userName") != null ? getIntent().getExtras().getString("userName") : "not provided";
+        String userName = getIntent().getExtras().getString("userName") != null ? getIntent().getExtras().getString("userName") : "";
+        String userEmail = getIntent().getExtras().getString("userEmail") != null ? getIntent().getExtras().getString("userEmail") : "";
         Integer userAvatar = getIntent().getExtras().getInt("userAvatar") != -1 ? getIntent().getExtras().getInt("userAvatar") : 0;
-        String roll = getIntent().getExtras().getString("userRoll") != null ? getIntent().getExtras().getString("userRoll") : "not provided";
-        getSupportFragmentManager().beginTransaction().replace(R.id.egrower_master_menu_user_information_fragment, UserInformationFragment.newInstance(userName, userAvatar, roll)).commit();
+        String roll = getIntent().getExtras().getString("userRoll") != null ? getIntent().getExtras().getString("userRoll") : "";
+        getSupportFragmentManager().beginTransaction().replace(R.id.egrower_master_menu_user_information_fragment, UserInformationFragment.newInstance(userEmail, userAvatar, roll)).commit();
         setTitle(R.string.dashboard_egrower);
     }
 
@@ -47,9 +48,10 @@ public class StudentMenu extends AppCompatActivity {
         switch(item.getItemId()){
             case R.id.configuration_button_student_menu_dashboard:
                 Intent newActivity = new Intent(this, Profile.class);
-                newActivity.putExtra("userName", getIntent().getExtras().getString("userName") != null ? getIntent().getExtras().getString("userName") : "not provided");
+                newActivity.putExtra("userName", getIntent().getExtras().getString("userName") != null ? getIntent().getExtras().getString("userName") : "");
+                newActivity.putExtra("userEmail", getIntent().getExtras().getString("userEmail") != null ? getIntent().getExtras().getString("userEmail") : "");
                 newActivity.putExtra("userAvatar", getIntent().getExtras().getInt("userAvatar") != -1 ? getIntent().getExtras().getInt("userAvatar") : 0);
-                newActivity.putExtra("userRoll", getIntent().getExtras().getString("userRoll") != null ? getIntent().getExtras().getString("userRoll") : "not provided");
+                newActivity.putExtra("userRoll", getIntent().getExtras().getString("userRoll") != null ? getIntent().getExtras().getString("userRoll") : "");
                 startActivity(newActivity);;
                 return true;
             case R.id.configuration_button_student_menu_logout:

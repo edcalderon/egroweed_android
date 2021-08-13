@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import com.example.pcsclassroom.model.dao.UserRoomDao;
 import com.example.pcsclassroom.model.pojo.User;
 
-@Database(entities = {User.class}, version = 2)
+@Database(entities = {User.class}, version = 5)
 public abstract class LocalStorage extends RoomDatabase {
     public abstract UserRoomDao userRoomDao();
     private static LocalStorage LocalStorage;

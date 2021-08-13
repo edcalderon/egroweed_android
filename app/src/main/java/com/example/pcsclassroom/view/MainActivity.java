@@ -14,14 +14,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.pcsclassroom.R;
 import com.example.pcsclassroom.controller.MainActivityController;
 import com.example.pcsclassroom.model.pojo.User;
 
+import es.dmoral.toasty.Toasty;
+
 public class MainActivity extends AppCompatActivity {
     private EditText nameEditText;
-    private Button leftAvatarButton, rightAvatarButton, registerButton;
+    private EditText emailEditText;
+    private EditText passwordEditText;
+    private Button leftAvatarButton, rightAvatarButton, registerButton, loginButton;
     private ImageView avatarImageView;
     private Spinner spinnerRoles;
     private int avatarIndex;
@@ -33,12 +38,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
         setContentView(R.layout.activity_main);
-        nameEditText = findViewById(R.id.input_user_name_register_user);
+        // nameEditText = findViewById(R.id.input_user_name_register_user);
+        emailEditText = findViewById(R.id.editTextEmail_login);
+        passwordEditText = findViewById(R.id.editTextTextPassword_input_register);
         leftAvatarButton = findViewById(R.id.left_button_avatar_register_user);
         rightAvatarButton = findViewById(R.id.right_button_register_user);
         avatarImageView = findViewById(R.id.avatar_image_view_register_user);
-        registerButton = findViewById(R.id.button_register_user);
+        registerButton = findViewById(R.id.button_login_loginView);
+        loginButton = findViewById(R.id.button_login_register);
         spinnerRoles = findViewById(R.id.spinner_app_login_roles);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.roles, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -46,7 +55,26 @@ public class MainActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registerUser();
+                boolean emptyPassword = passwordEditText.getText().toString().isEmpty();
+                if(emptyPassword) {
+                    Toasty.warning(getApplicationContext(), "Enter an password", Toast.LENGTH_SHORT, true).show();
+                }
+                if(emailEditText.getText().toString().isEmpty()) {
+                    Toasty.warning(getApplicationContext(), "Enter an email address", Toast.LENGTH_SHORT, true).show();
+                }else {
+                    if (emailEditText.getText().toString().trim().matches(emailPattern) && !emptyPassword) {
+                        registerUser();
+                    } else {
+                        Toasty.error(getApplicationContext(), "Invalid email address", Toast.LENGTH_SHORT, true).show();
+                    }
+                }
+            }
+        });
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newActivity = new Intent(MainActivity.this, MainActivityLogin.class);
+                startActivity(newActivity);
             }
         });
         leftAvatarButton.setOnClickListener(new View.OnClickListener() {
@@ -67,23 +95,11 @@ public class MainActivity extends AppCompatActivity {
         User actualUser = mainActivityController.checkActualUser(this);
         SharedPreferences sharedpreferences = getSharedPreferences(MainActivity.SESSION, Context.MODE_PRIVATE);
         String sessionName = sharedpreferences.getString("nameKey", "name");
-        if(actualUser != null && actualUser.getName().compareTo(sessionName)==0){
+        if(actualUser != null && actualUser.getEmail().compareTo(sessionName)==0){
             registerSucceed(actualUser);
         }
     }
-    public void nameIsMandatory(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("* Name is mandatory.")
-                .setTitle("Something went wrong")
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
+
     public void updateAlreadyRegisteredUser(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("You can only update your avatar.")
@@ -124,7 +140,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         mainActivityController.register(MainActivity.this,
-                                nameEditText.getText().toString(),
+                                emailEditText.getText().toString(),
+                                passwordEditText.getText().toString(),
                                 avatarIndex,
                                 spinnerRoles.getSelectedItem().toString());
                     }
@@ -141,18 +158,20 @@ public class MainActivity extends AppCompatActivity {
     public void registerSucceed(User user){
         SharedPreferences sharedpreferences = getSharedPreferences(SESSION, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putString(Name, user.getName());
+        editor.putString(Name, user.getEmail());
         editor.commit();
         if(user.getRoll().compareTo("E-grower")==0){
             Intent newActivity = new Intent(this, StudentMenu.class);
-            newActivity.putExtra("userName", user.getName());
+            newActivity.putExtra("userEmail", user.getEmail());
+            // newActivity.putExtra("userName", user.getName());
             newActivity.putExtra("userAvatar", user.getAvatar());
             newActivity.putExtra("userRoll", user.getRoll());
             startActivity(newActivity);
         }
         if(user.getRoll().compareTo("E-grower Master")==0){
-            Intent newActivity = new Intent(this, Egrower_master_dashboard.class);
-            newActivity.putExtra("userName", user.getName());
+            Intent newActivity = new Intent(this, EgrowerMasterDashboard.class);
+            newActivity.putExtra("userEmail", user.getEmail());
+            // newActivity.putExtra("userName", user.getName());
             newActivity.putExtra("userAvatar", user.getAvatar());
             newActivity.putExtra("userRoll", user.getRoll());
             startActivity(newActivity);
@@ -162,26 +181,28 @@ public class MainActivity extends AppCompatActivity {
 
     public void registerUser(){
         User checkActualUser = mainActivityController.checkActualUser(this);
-        String checkUserName = mainActivityController.checkUserName(this, nameEditText.getText().toString());
-        if(checkActualUser == null && checkUserName == null){
+        String checkUserEmail = mainActivityController.checkUserEmail(this, emailEditText.getText().toString());
+        if(checkActualUser == null && checkUserEmail == null){
             mainActivityController.register(this,
-                    nameEditText.getText().toString(),
+                    emailEditText.getText().toString(),
+                    passwordEditText.getText().toString(),
                     avatarIndex,
                     spinnerRoles.getSelectedItem().toString());
         }
-        if(checkActualUser.getName().compareTo(nameEditText.getText().toString())==0){
+        if(checkActualUser.getEmail().compareTo(emailEditText.getText().toString())==0){
             updateAlreadyRegisteredUser();
         }
-        if(checkUserName != null){
+        if(checkUserEmail != null){
             userAlreadyTaken();
         }
-        if(checkActualUser != null && checkUserName == null){
+        if(checkActualUser != null && checkUserEmail == null){
             alertNewUserToRegister();
         }
     }
     public void updateRegisteredUser(){
         mainActivityController.updateRegisteredUser(this,
-                nameEditText.getText().toString(),
+                emailEditText.getText().toString(),
+                passwordEditText.getText().toString(),
                 avatarIndex,
                 spinnerRoles.getSelectedItem().toString());
     }

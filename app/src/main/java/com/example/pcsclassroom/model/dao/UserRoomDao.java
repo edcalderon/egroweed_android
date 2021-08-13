@@ -24,6 +24,9 @@ public interface UserRoomDao {
     @Query("SELECT * FROM users WHERE name = :nameQuery")
     User getUserByName(String nameQuery);
 
+    @Query("SELECT * FROM users WHERE email = :emailQuery")
+    User getUserByEmail(String emailQuery);
+
     @Insert
     void insertAl(User ... users );
     @Insert

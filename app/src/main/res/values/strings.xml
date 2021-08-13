@@ -2,7 +2,10 @@
     <string name="app_name">E-GROWEED</string>
     <string name="app_login_welcome">WELCOME TO</string>
     <string name="user_name_label">Please enter your name</string>
-    <string name="app_login_roll_label">Roll</string>
+    <string name="user_email_label">Please enter your email</string>
+    <string name="user_password_label">Enter a password</string>
+    <string name="app_login_roll_label">Select your roll</string>
+    <string name="app_login_avatar_label">Select your avatar</string>
     <string name="app_profile_update">Update</string>
     <string-array name="roles">
         <item>E-grower</item>
@@ -12,9 +15,12 @@
     <string name="user_email_input">Email</string>
     <string name="user_password_input">Password</string>
     <string name="user_name_label_mandatory">Name *</string>
+    <string name="user_password_label_mandatory">Password *</string>
+    <string name="user_email_label_mandatory">Email *</string>
     <string name="avatar_accessibility_description">An avatar image</string>
     <string name="app_login_welcome_logo_description">e-groweed logo</string>
     <string name="button_register_user">Register</string>
+    <string name="button_login">Login</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_user_menu_fragment">Hello!</string>
     <string name="configuration_button_label_student_menu_profile">Profile</string>

@@ -1,6 +1,7 @@
 package com.example.pcsclassroom.view;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,17 +12,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.pcsclassroom.R;
 import com.example.pcsclassroom.view.fragments.UserInformationFragment;
 
-public class Egrower_master_dashboard extends AppCompatActivity {
+public class EgrowerMasterDashboard extends AppCompatActivity {
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_egrower_master_dashboard);
-        String userName = getIntent().getExtras().getString("userName") != null ? getIntent().getExtras().getString("userName") : "not provided";
+        String userName = getIntent().getExtras().getString("userName") != null ? getIntent().getExtras().getString("userName") : "";
+        String userEmail = getIntent().getExtras().getString("userEmail") != null ? getIntent().getExtras().getString("userEmail") : "";
         Integer userAvatar = getIntent().getExtras().getInt("userAvatar") != -1 ? getIntent().getExtras().getInt("userAvatar") : 0;
-        String roll = getIntent().getExtras().getString("userRoll") != null ? getIntent().getExtras().getString("userRoll") : "not provided";
-        getSupportFragmentManager().beginTransaction().replace(R.id.egrower_master_menu_user_information_fragment, UserInformationFragment.newInstance(userName, userAvatar, roll)).commit();
+        String roll = getIntent().getExtras().getString("userRoll") != null ? getIntent().getExtras().getString("userRoll") : "";
+        getSupportFragmentManager().beginTransaction().replace(R.id.egrower_master_menu_user_information_fragment, UserInformationFragment.newInstance(userEmail, userAvatar, roll)).commit();
         setTitle(R.string.dashboard_egrower_master);
     }
 
@@ -35,9 +37,12 @@ public class Egrower_master_dashboard extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
             case R.id.configuration_button_student_menu_dashboard:
-                AlertDialog.Builder builder_profile = new AlertDialog.Builder(this)
-                        .setTitle("Profile");
-                builder_profile.create().show();
+                Intent newActivity = new Intent(this, Profile.class);
+                newActivity.putExtra("userName", getIntent().getExtras().getString("userName") != null ? getIntent().getExtras().getString("userName") : "");
+                newActivity.putExtra("userEmail", getIntent().getExtras().getString("userEmail") != null ? getIntent().getExtras().getString("userEmail") : "");
+                newActivity.putExtra("userAvatar", getIntent().getExtras().getInt("userAvatar") != -1 ? getIntent().getExtras().getInt("userAvatar") : 0);
+                newActivity.putExtra("userRoll", getIntent().getExtras().getString("userRoll") != null ? getIntent().getExtras().getString("userRoll") : "");
+                startActivity(newActivity);;
                 return true;
             case R.id.configuration_button_student_menu_logout:
                 AlertDialog.Builder builder_logout = new AlertDialog.Builder(this)

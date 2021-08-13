@@ -23,38 +23,33 @@ public class MainActivityController {
         return null;
     }
 
-    public String checkUserName(MainActivity mainActivity, String name){
+    public String checkUserEmail(MainActivity mainActivity, String email){
         this.userRoomDao = LocalStorage.getLocalStorage(mainActivity.getApplicationContext()).userRoomDao();
         User user;
-        user = this.userRoomDao.getUserByName(name);
+        user = this.userRoomDao.getUserByEmail(email);
         if (user != null){
-            return user.getName();
+            return user.getEmail();
         }
         return null;
     }
 
-    public void register(MainActivity mainActivity, String name, Integer avatar, String roll){
+    public void register(MainActivity mainActivity, String email, String password, Integer avatar, String roll){
         this.userRoomDao = LocalStorage.getLocalStorage(mainActivity.getApplicationContext()).userRoomDao();
-        if(name == null || name.compareTo("")==0){
-            mainActivity.nameIsMandatory();
-            return;
-        }
         User user = new User();
-        user.setName(name);
+        user.setEmail(email);
+        user.setPassword(password);
         user.setAvatar(avatar);
         user.setRoll(roll);
         this.userRoomDao.insertOne(user);
         mainActivity.registerSucceed(user);
     }
 
-    public void updateRegisteredUser(MainActivity mainActivity, String name, Integer avatar, String roll){
+    public void updateRegisteredUser(MainActivity mainActivity, String email, String password, Integer avatar, String roll){
         this.userRoomDao = LocalStorage.getLocalStorage(mainActivity.getApplicationContext()).userRoomDao();
-        if(name == null || name.compareTo("")==0){
-            mainActivity.nameIsMandatory();
-            return;
-        }
         User user = new User();
-        user.setName(name);
+        // user.setName(name);
+        user.setEmail(email);
+        user.setPassword(password);
         user.setAvatar(avatar);
         user.setRoll(roll);
         this.userRoomDao.updateOne(user);
