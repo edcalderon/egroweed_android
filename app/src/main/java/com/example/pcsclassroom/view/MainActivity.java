@@ -163,7 +163,6 @@ public class MainActivity extends AppCompatActivity {
         if(user.getRoll().compareTo("E-grower")==0){
             Intent newActivity = new Intent(this, StudentMenu.class);
             newActivity.putExtra("userEmail", user.getEmail());
-            // newActivity.putExtra("userName", user.getName());
             newActivity.putExtra("userAvatar", user.getAvatar());
             newActivity.putExtra("userRoll", user.getRoll());
             startActivity(newActivity);
@@ -171,7 +170,6 @@ public class MainActivity extends AppCompatActivity {
         if(user.getRoll().compareTo("E-grower Master")==0){
             Intent newActivity = new Intent(this, EgrowerMasterDashboard.class);
             newActivity.putExtra("userEmail", user.getEmail());
-            // newActivity.putExtra("userName", user.getName());
             newActivity.putExtra("userAvatar", user.getAvatar());
             newActivity.putExtra("userRoll", user.getRoll());
             startActivity(newActivity);

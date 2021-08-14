@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.pcsclassroom.R;
-import com.example.pcsclassroom.controller.ProfileActivityController;
+import com.example.pcsclassroom.controller.ProfileController;
 
 
 import es.dmoral.toasty.Toasty;
@@ -30,7 +30,7 @@ public class Profile extends AppCompatActivity {
     private EditText nameEditText;
     private ImageView avatarImageView;
     private Button updateButton;
-    private ProfileActivityController profileActivityController;
+    private ProfileController profileController;
 
 
     @Override
@@ -73,11 +73,7 @@ public class Profile extends AppCompatActivity {
     }
 
     public void updateUser(){
-        if(nameEditText.getText().toString().isEmpty()) {
-            Toasty.warning(getApplicationContext(), "Change something", Toast.LENGTH_SHORT, true).show();
-        } else{
-            profileActivityController.updateUser(this, emailEditText.getText().toString(), nameEditText.getText().toString());
-        }
+        profileController.updateUser(this);
     }
     public void updateUserSucceed(){
         Toasty.success(getApplicationContext(), "User updated", Toast.LENGTH_SHORT, true).show();
@@ -86,7 +82,7 @@ public class Profile extends AppCompatActivity {
         SharedPreferences sharedpreferences = getSharedPreferences(MainActivity.SESSION, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.clear();
-        editor.commit();
+        editor.apply();
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);

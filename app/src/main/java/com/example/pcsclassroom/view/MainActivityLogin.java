@@ -22,7 +22,6 @@ import es.dmoral.toasty.Toasty;
 public class MainActivityLogin extends AppCompatActivity {
     private EditText emailEditText;
     private EditText passwordEditText;
-
     private MainActivityControllerLogin mainActivityControllerLogin;
     private Button loginButton;
     public static final String SESSION = "MyPrefs" ;

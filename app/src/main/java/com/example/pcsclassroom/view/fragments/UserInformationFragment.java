@@ -16,25 +16,20 @@ public class UserInformationFragment extends Fragment {
     private String name;
     private String email;
     private Integer avatar;
-    private String roll;
     private View rootView;
-    private TextView nameTextView;
+    private TextView emailTextView;
     private ImageView avatarImageView;
-    private TextView rollTextView;
 
     public UserInformationFragment() {
         // Required empty public constructor
     }
 
-    public static UserInformationFragment newInstance(String email, String name, Integer avatar, String roll) {
+    public static UserInformationFragment newInstance(String email, Integer avatar) {
         UserInformationFragment fragment = new UserInformationFragment();
-        fragment.setName(name);
         fragment.setEmail(email);
         fragment.setAvatar(avatar);
-        fragment.setRoll(roll);
         return fragment;
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,11 +40,10 @@ public class UserInformationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_user_information, container, false);
-        nameTextView = rootView.findViewById(R.id.user_name_user_information_fragment);
+        emailTextView = rootView.findViewById(R.id.user_email_user_information_fragment);
         avatarImageView = rootView.findViewById(R.id.avatar_information_fragment);
-        // rollTextView = rootView.findViewById(R.id.menu_roll_textView);
-        nameTextView.setText(name);
-        // rollTextView.setText(roll);
+        emailTextView.setText(email);
+
         switch (avatar){
             case 0:
                 avatarImageView.setImageResource(R.drawable.ic_avatar_1);
@@ -85,8 +79,6 @@ public class UserInformationFragment extends Fragment {
     public void setAvatar(Integer avatar) {
         this.avatar = avatar;
     }
-
-    private void setRoll(String roll) { this.roll = roll; }
 
     public String getEmail() {
         return email;
