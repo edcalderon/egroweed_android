@@ -25,7 +25,9 @@ public class MainActivityLogin extends AppCompatActivity {
     private MainActivityControllerLogin mainActivityControllerLogin;
     private Button loginButton;
     public static final String SESSION = "MyPrefs" ;
+    public static final String Email = "emailKey";
     public static final String Name = "nameKey";
+    public static final String Roll = "rollKey";
 
 
     @Override
@@ -69,25 +71,22 @@ public class MainActivityLogin extends AppCompatActivity {
     public void loginSucceed(User user){
         SharedPreferences sharedpreferences = getSharedPreferences(SESSION, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putString(Name, user.getEmail());
-        editor.commit();
+        editor.putString(Email, user.getEmail());
+        editor.putString(Name, user.getName());
+        editor.putString(Roll, user.getRoll());
+        editor.apply();
         if(user.getRoll().compareTo("E-grower")==0){
             Intent newActivity = new Intent(this, StudentMenu.class);
-            newActivity.putExtra("userEmail", user.getEmail());
-            // newActivity.putExtra("userName", user.getName());
             newActivity.putExtra("userAvatar", user.getAvatar());
             newActivity.putExtra("userRoll", user.getRoll());
             startActivity(newActivity);
         }
         if(user.getRoll().compareTo("E-grower Master")==0){
             Intent newActivity = new Intent(this, EgrowerMasterDashboard.class);
-            newActivity.putExtra("userEmail", user.getEmail());
-            // newActivity.putExtra("userName", user.getName());
             newActivity.putExtra("userAvatar", user.getAvatar());
             newActivity.putExtra("userRoll", user.getRoll());
             startActivity(newActivity);
         }
-
     }
 
     public void loginFail(User user){

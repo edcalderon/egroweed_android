@@ -17,7 +17,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.pcsclassroom.R;
+import com.example.pcsclassroom.controller.MainActivityController;
 import com.example.pcsclassroom.controller.ProfileController;
+import com.example.pcsclassroom.model.pojo.User;
 
 
 import es.dmoral.toasty.Toasty;
@@ -31,15 +33,20 @@ public class Profile extends AppCompatActivity {
     private ImageView avatarImageView;
     private Button updateButton;
     private ProfileController profileController;
-
+    public static final String Name = "nameKey";
+    private String sessionName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        String userName = getIntent().getExtras().getString("userName") != null ? getIntent().getExtras().getString("userName") : "";
-        String userEmail = getIntent().getExtras().getString("userEmail") != null ? getIntent().getExtras().getString("userEmail") : "";
-        String userRoll = getIntent().getExtras().getString("userRoll") != null ? getIntent().getExtras().getString("userRoll") : "";
+        SharedPreferences sharedpreferences = getSharedPreferences(MainActivity.SESSION, Context.MODE_PRIVATE);
+        String sessionEmail = sharedpreferences.getString("emailKey", "");
+        sessionName = sharedpreferences.getString("nameKey", "");
+        String sessionRoll = sharedpreferences.getString("rollKey", "");
+        String userName = sessionName != null ?  sessionName : getIntent().getExtras().getString("userName");
+        String userEmail = getIntent().getExtras().getString("userEmail") != null ? sessionEmail : getIntent().getExtras().getString("userEmail");
+        String userRoll = sessionRoll != null ? sessionRoll : getIntent().getExtras().getString("userRoll");
         Integer userAvatar = getIntent().getExtras().getInt("userAvatar") != -1 ? getIntent().getExtras().getInt("userAvatar") : 0;
         emailEditText = findViewById(R.id.editText_profile_email);
         emailEditText.setText(userEmail);
@@ -58,12 +65,12 @@ public class Profile extends AppCompatActivity {
                 updateUser();
             }
         });
-
         if(userRoll.compareTo("E-grower")==0){
             setTitle(R.string.profile_egrower);
         } else {
             setTitle(R.string.profile_egrower_master);
         }
+        profileController = new ProfileController();
     }
 
     @Override
@@ -73,9 +80,23 @@ public class Profile extends AppCompatActivity {
     }
 
     public void updateUser(){
-        profileController.updateUser(this);
+        String email = emailEditText.getText().toString();
+        String name = nameEditText.getText().toString();
+        if(name.compareTo("")!=0){
+            profileController.updateUser(this, email, name);
+        } else {
+            Toasty.warning(getApplicationContext(), "Update Something", Toast.LENGTH_SHORT, true).show();
+        }
+
     }
-    public void updateUserSucceed(){
+    public void updateUserSucceed(User user){
+        String name = user.getName();
+        nameEditText.setText(name);
+        SharedPreferences sharedpreferences = getSharedPreferences(MainActivity.SESSION, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        sessionName = user.getName();
+        editor.putString(Name, user.getName());
+        editor.apply();
         Toasty.success(getApplicationContext(), "User updated", Toast.LENGTH_SHORT, true).show();
     }
     public void logout(){

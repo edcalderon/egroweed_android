@@ -9,11 +9,11 @@ import com.example.pcsclassroom.view.Profile;
 public class ProfileController {
     private UserRoomDao userRoomDao;
 
-    public void updateUser(Profile profile){
-        /*this.userRoomDao = LocalStorage.getLocalStorage(profile.getApplicationContext()).userRoomDao();
+    public void updateUser(Profile profile, String email, String name){
+        this.userRoomDao = LocalStorage.getLocalStorage(profile.getApplicationContext()).userRoomDao();
         User user = this.userRoomDao.getUserByEmail(email);
         user.setName(name);
-        this.userRoomDao.updateOne(user);*/
-        profile.updateUserSucceed();
+        this.userRoomDao.updateOne(user);
+        profile.updateUserSucceed(user);
     }
 }
